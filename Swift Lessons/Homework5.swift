@@ -42,7 +42,7 @@ class Cafe {
 class FirstCafe: Cafe {
     override func add(item: Tea) {
         super.add(item: item)
-        print("The cost of \(item.name) is \(item.cost)")
+        print("The cost of \(item.name) is \(item.cost) RUB")
     }
 }
 
@@ -55,11 +55,11 @@ class ThirdCafe: Cafe {
 final class VendMachine: FirstCafe {
 }
 
-let blackTea = Tea(name: "Black", cost: 3.5)
-let greenTea = Tea(name: "Green", cost: 3.0)
+let blackTea = Tea(name: "Black", cost: 50.0)
+let greenTea = Tea(name: "Green", cost: 55.0)
 
 let cafe = FirstCafe(menu: [blackTea, greenTea])
 
-let whiteTea = Tea(name: "White", cost: 5.0)
+let whiteTea = Tea(name: "White", cost: 75.0)
 
 cafe.add(item: whiteTea)
