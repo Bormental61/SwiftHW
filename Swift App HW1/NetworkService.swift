@@ -6,7 +6,7 @@ final class NetworkService {
     static var token = ""
     static var iserID = ""
 
-    func getFriends() {
+    func getFriends(completion: @escaping([Friend]) -> Void) {
         guard let url = URL(string: "https://api.vk.com/method/friends.get?fields=photo_50&access_token=\(NetworkService.token)&v=5.131")
             else {
                 return
@@ -17,6 +17,7 @@ final class NetworkService {
             }
             do {
                 let friends = try JSONDecoder().decode(FriendsModel.self, from: data)
+                completion(friends.responce.items)
                 print(friends)
             } catch {
                 print(error)
@@ -24,7 +25,7 @@ final class NetworkService {
         }.resume()
     }
 
-    func getGroups() {
+    func getGroups(completion: @escaping ([Group]) -> Void) {
         guard let url = URL(string: 
             "https://api.vk.com/method/groups.get?access_token=\(NetworkService.token)&fields=description&v=5.131&extended=1") else {
             return
@@ -36,6 +37,7 @@ final class NetworkService {
             }
             do {
                 let groups = try JSONDecoder().decode(GroupsModel.self, from: data)
+                completion(groups.responce.items)
                 print(groups)
             } catch {
                 print(error)
@@ -43,7 +45,7 @@ final class NetworkService {
         }.resume()
     }
 
-    func getPhotos() {
+    func getPhotos(completion: @escaping ([Photo]) -> Void) {
         guard let url = URL(string: 
             "https://api.vk.com/method/photos.get?fields=bdate&access_token=\(NetworkService.token)&v=5.131&album_id=profile") else {
             return
@@ -55,6 +57,7 @@ final class NetworkService {
             }
             do {
                 let photos = try JSONDecoder().decode(PhotosModel.self, from: data)
+                completion(photos.responce.items)
                 print(photos)
             } catch {
                 print(error)
