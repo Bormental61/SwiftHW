@@ -4,22 +4,24 @@ final class GroupsViewController: UITableViewController {
 
     private let networkService = NetworkService()
     private var models: [Group] = []
+    private let fileCache = FileCache()
 
     override func viewDidload() {
         super.viewDidload()
+        models = fileCache.fetchGroups()
+        tableView.reloadData()
         title = "Groups"
-        view.backgroundColor = .white
-        tableView.backgroundColor = .white
+        view.backgroundColor = Theme.currentTheme.backgroundColor
+        tableView.backgroundColor = Theme.currentTheme.backgroundColor
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.barTintColor = .black
         tableView.register(GroupCell.self, forCellReuseIdentifier: "GroupCell")
-        networkService.getGroups { [weak self] groups in
-            self?.models = groups
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(update), for: .valueChanged)
+        getGroups()
     }
+
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         models.count

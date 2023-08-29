@@ -4,9 +4,15 @@ final class PhotosViewController: UICollectionViewController {
 
     private let networkService = NetworkService()
     private var models: [Photo] = []
+    private let fileCache = FileCache()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        models = fileCache.fetchGroups()
+        tableView.reloadData()
+        view.backgroundColor = Theme.currentTheme.backgroundColor
+        collectionView.backgroundColor = Theme.currentTheme.backgroundColor
         title = "Photos"
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: Constants.Identifier.photoCellIdentifier)
         networkService.getPhotos { [weak self] photos in

@@ -11,7 +11,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        ThemeSaver.getData()
+        view.backgroundColor = Theme.currentTheme.backgroundColor
         setupViews()
 
         let url = URL(string: "https://oauth.vk.com/autorize?client_id=5464744&redirect_uri=https://oauth.vk.com/blank
