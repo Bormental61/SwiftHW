@@ -1,21 +1,22 @@
 struct GroupsModel: Decodable {
     var responce: Groups
-}
 
-struct Groups: Decodable {
-    var items: [Group]
-}
+    struct Groups: Decodable {
+        var items: [Group]
 
-struct Group: Codable {
-    var id: Int
-    var name: String?
-    var photo: String?
-    var description: String?
+        struct Group: Codable {
+            var id: Int
+            var name: String?
+            var photo: String?
+            var description: String?
 
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case photo = "photo_50"
-        case description
+            enum CodingKeys: String, CodingKey {
+                case id
+                case name
+                case photo = "photo_50"
+                case description
+            }
+        }
     }
 }
+
